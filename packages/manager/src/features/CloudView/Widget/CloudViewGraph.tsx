@@ -60,15 +60,18 @@ export const CloudViewGraph = (props: CloudViewGraphProperties) => {
 
             let index = 0;
 
+            let color = ['red', 'blue', 'green']
+
             metricsList.data.result.forEach(graphData => {
                 let dimension = {
-                    borderColor: colors[index],                    
-                    backgroundColor:colors[index++],
+                    borderColor: colors[index],
+                    backgroundColor: colors[index++],
                     data: seriesDataFormatter(graphData.values,
                         props.dashboardFilters && props.dashboardFilters.timeRange ? props.dashboardFilters.timeRange.start : 0,
                         props.dashboardFilters && props.dashboardFilters.timeRange ? props.dashboardFilters.timeRange.end : 0),
                     label: graphData.metric.state,
-                    fill: true
+                    // fill: false,
+                    borderWidth:3
                 }                
                 dimensions.push(dimension);
             })
@@ -96,7 +99,7 @@ export const CloudViewGraph = (props: CloudViewGraphProperties) => {
             ariaLabel={props.ariaLabel}
             error={false ? props.errorLabel : undefined}
             loading={loading}
-            nativeLegend
+            nativeLegend={true}
             showToday={getShowToday()}
             subtitle={props.metric}
             timezone={timezone}

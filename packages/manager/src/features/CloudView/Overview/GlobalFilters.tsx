@@ -82,26 +82,17 @@ export const GlobalFilters = React.memo((props: GlobalFilterProperties) => {
 
 
   return (
-      <Grid container sx={{ ...itemSpacing, padding: '8px' }}>
-        <StyledGrid xs={12}>
-          <Grid sx={{ fontSize: 'medium' }}>
-            <div>Region</div>
-          </Grid>
-          <Grid sx={{ marginLeft: 2, width: 250 }}>
+      <Grid container sx={{ ...itemSpacing }}>
+        <StyledGrid xs={12}>                    
+          <Grid sx={{ marginLeft: 0, width: 200 }}>
+            <CloudViewServiceSelect handleServiceChange={handleServiceChange} />
+          </Grid>          
+          <Grid sx={{ marginLeft: 2, width: 150 }}>
             <StyledCloudViewRegionSelect
               handleRegionChange={handleRegionChange}
             />
-          </Grid>
-          <Grid sx={{ marginLeft: 4, fontSize: 'medium' }}>
-            <div>Service Type</div>
-          </Grid>
-          <Grid sx={{ marginLeft: 0.2, width: 100 }}>
-            <CloudViewServiceSelect handleServiceChange={handleServiceChange} />
-          </Grid>
-          <Grid sx={{ fontSize: 'medium', marginLeft: 6 }}>
-            <div>Resource</div>
-          </Grid>
-          <Grid sx={{ marginLeft: 2, width: 200 }}>
+          </Grid>          
+          <Grid sx={{ marginLeft: 2, width: 160 }}>
             <StyledCloudViewResourceSelect
               handleResourceChange={handleResourceChange}
               region={selectedRegion}
@@ -109,12 +100,12 @@ export const GlobalFilters = React.memo((props: GlobalFilterProperties) => {
               disabled={!selectedService}
             />
           </Grid>
-          <Grid sx={{ marginLeft: 8 }}>
+          <Grid sx={{ marginLeft: 2, width:80 }}>
             <StyledCloudViewIntervalSelect
               handleIntervalChange={handleIntervalChange}
             />
           </Grid>
-          <Grid sx={{ marginLeft: 3 }}>
+          <Grid sx={{ marginLeft: 6, width:60 }}>
             <StyledCloudViewTimeRangeSelect
               defaultValue={'Past 30 Minutes'}
               handleStatsChange={handleTimeRangeChange}
@@ -130,7 +121,7 @@ export const GlobalFilters = React.memo((props: GlobalFilterProperties) => {
 const StyledCloudViewRegionSelect = styled(CloudViewRegionSelect, {
   label: 'StyledCloudViewRegionSelect',
 })({
-  width: 100,
+  width: 80,
 });
 
 const StyledCloudViewResourceSelect = styled(CloudViewResourceSelect, {
@@ -142,7 +133,7 @@ const StyledCloudViewResourceSelect = styled(CloudViewResourceSelect, {
 const StyledCloudViewTimeRangeSelect = styled(CloudViewTimeRangeSelect, {
   label: 'StyledCloudViewTimeRangeSelect',
 })({
-  width: 150,
+  width: 120,
 });
 
 const StyledCloudViewIntervalSelect = styled(CloudViewIntervalSelect, {

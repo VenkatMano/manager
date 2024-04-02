@@ -14,19 +14,19 @@ export const getMetricsResponse = (requestBody: any) => {
                         "metric": {
                             "state": "dimension1"
                         },
-                        "values": [...getArrayData(3, 1000, requestBody.startTime, requestBody.endTime)]
+                        "values": [...getArrayData(3, 1000, requestBody.startTime, requestBody.endTime, false)]
                     },
                     {
                         "metric": {
                             "state": "dimension2"
                         },
-                        "values": getArrayData(2, 1000, requestBody.startTime, requestBody.endTime)
+                        "values": getArrayData(2, 1000, requestBody.startTime, requestBody.endTime, false)
                     },
                     {
                         "metric": {
                             "state": "dimension3"
                         },
-                        "values": getArrayData(6, 1000, requestBody.startTime, requestBody.endTime)
+                        "values": getArrayData(6, 1000, requestBody.startTime, requestBody.endTime, true)
                     }
                 ],
                 "resultType": "matrix"
@@ -49,19 +49,19 @@ export const getMetricsResponse = (requestBody: any) => {
                         "metric": {
                             "state": "dimension1"
                         },
-                        "values": [...getArrayData(3, 1000, requestBody.startTime, requestBody.endTime)]
+                        "values": [...getArrayData(3, 1000, requestBody.startTime, requestBody.endTime, false)]
                     },
                     {
                         "metric": {
                             "state": "dimension2"
                         },
-                        "values": getArrayData(2, 1000, requestBody.startTime, requestBody.endTime)
+                        "values": getArrayData(2, 1000, requestBody.startTime, requestBody.endTime, false)
                     },
                     {
                         "metric": {
                             "state": "dimension3"
                         },
-                        "values": getArrayData(6, 1000, requestBody.startTime, requestBody.endTime)
+                        "values": getArrayData(6, 1000, requestBody.startTime, requestBody.endTime, true)
                     }
                 ],
                 "resultType": "matrix"
@@ -181,7 +181,7 @@ export const getMetricsResponse = (requestBody: any) => {
 }
 
 const getArrayData = (incrementer: number, interval: number, start: number,
-    end: number) => {
+    end: number, randomDecrement?:boolean) => {
 
     let arrayData: Array<number[]> = [];
     let j = 1;    
@@ -193,6 +193,17 @@ const getArrayData = (incrementer: number, interval: number, start: number,
         j = j + incrementer;
         arrayData.push(element);
     }
+
+    
+
+    if(randomDecrement) {
+        let mid = arrayData.length/2;
+        for(let j=mid; j<arrayData.length; j++) {
+
+            arrayData[j][1] = arrayData[j-1][1]-incrementer;
+    
+        }
+    }    
 
     console.log(arrayData)
 
