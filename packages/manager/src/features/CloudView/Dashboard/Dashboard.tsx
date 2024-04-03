@@ -5,15 +5,13 @@ import { Placeholder } from 'src/components/Placeholder/Placeholder';
 import { useCloudViewDashboardByIdQuery } from 'src/queries/cloudview/dashboards';
 import CloudViewIcon from 'src/assets/icons/entityIcons/cv_overview.svg';
 import { GlobalFiltersObject } from '../Models/GlobalFilterProperties';
-import { CloudViewGraph } from '../Widget/CloudViewGraph';
-import { CloudViewGraphProperties } from '../Models/CloudViewGraphProperties';
+import { CloudViewGraph, CloudViewGraphProperties } from '../Widget/CloudViewGraph';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { Dashboard, Widgets } from '@linode/api-v4';
 
 
-export interface DashboardProperties {
-    dashboardId:number;
+export interface DashboardProperties {    
     dashbaord:Dashboard; // this will be done in upcoming sprint
     dashboardFilters:GlobalFiltersObject;
 }
@@ -23,11 +21,7 @@ export const CloudPulseDashboard = (props: DashboardProperties) => { //todo defi
 
     const [cloudViewGraphProperties, setCloudViewGraphProperties] = React.useState<CloudViewGraphProperties>({} as CloudViewGraphProperties);
 
-    if (props.dashboardId) {
-        var dashboardId = props.dashboardId;
-    } else {
-        dashboardId = 1
-    }
+    var dashboardId = 1    
 
     const { data: dashboard, isError: dashboardLoadError,
         isLoading: dashboardLoadLoding } = useCloudViewDashboardByIdQuery(dashboardId);
@@ -50,15 +44,12 @@ export const CloudPulseDashboard = (props: DashboardProperties) => { //todo defi
     const getCloudViewGraphProperties = (widget:Widgets) => {
 
         let graphProp:CloudViewGraphProperties = {} as CloudViewGraphProperties;
-
-        graphProp = {...cloudViewGraphProperties};
-
-        //properties tied to widget, it may or may not come in widget response
-        graphProp.title = widget.label;
-        graphProp.aggregate_function = widget.aggregate_function;
-        graphProp.metric = widget.metric;
-        graphProp.color = widget.color;
-        graphProp.gridSize = widget.size;
+        graphProp.widget = {...widget};
+        graphProp.dashboardFilters = props.dashboardFilters;
+        graphProp.unit = "%";
+        graphProp.serviceType = widget.serviceType!;
+        graphProp.ariaLabel = widget.label;
+        graphProp.errorLabel = 'Error While loading data'     
 
         return graphProp;
 
