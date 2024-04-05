@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Paper } from 'src/components/Paper';
 import { CloudPulseDashboard, DashboardProperties } from '../Dashboard/Dashboard';
-import { GlobalFiltersObject } from '../Models/GlobalFilterProperties';
+import { FiltersObject } from '../Models/GlobalFilterProperties';
 import { GlobalFilters } from './GlobalFilters';
 import { Divider } from 'src/components/Divider';
 
@@ -13,7 +13,7 @@ export const Overview = React.memo(() => {
 
 
 
-  const handleGlobalFilterChange = (globalFilter: GlobalFiltersObject) => {
+  const handleGlobalFilterChange = (globalFilter: FiltersObject) => {
     //set as dashboard filter    
     setDashboardProp({ ...dashboardProp, dashboardFilters: globalFilter })
   }
@@ -27,7 +27,7 @@ export const Overview = React.memo(() => {
                     <h3 >{"Akamai Cloud Pulse Dashboard"}</h3>
                 </div>    
                 <div style={{width:"80%"}}>
-                <GlobalFilters handleAnyFilterChange={(filters:GlobalFiltersObject) => 
+                <GlobalFilters handleAnyFilterChange={(filters:FiltersObject) => 
                 handleGlobalFilterChange(filters)}></GlobalFilters>   
                 </div>
       </div>
